@@ -1,0 +1,9 @@
+.navegacao a{
+    cursor:pointer;
+    color:white;
+}
+
+.navegacao a:hover{
+    background:white;
+    color:black;
+}
