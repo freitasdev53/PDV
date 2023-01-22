@@ -1,0 +1,4 @@
+[14-Jan-2023 05:31:12 UTC] PHP Warning:  include(./popup/modalClientes.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\PDV\view\produtos.php on line 2
+[14-Jan-2023 05:31:12 UTC] PHP Warning:  include(): Failed opening './popup/modalClientes.php' for inclusion (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\PDV\view\produtos.php on line 2
+[14-Jan-2023 05:37:42 UTC] PHP Warning:  include(../popup/modalClientes.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\PDV\view\produtos.php on line 2
+[14-Jan-2023 05:37:42 UTC] PHP Warning:  include(): Failed opening '../popup/modalClientes.php' for inclusion (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\PDV\view\produtos.php on line 2
