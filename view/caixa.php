@@ -1,15 +1,33 @@
 <?php
 include"../popup/modalFinalizar.php";
+include"../processamento/class.php";
 ?>
 <script src="./js/caixa.js"></script>
 <div class="d-flex flex-wrap p-1">
     <div class="col-sm-2">
-        <input name="buscarProduto" class="form-control rounded-0" type="text" class="form-control">
+        <input list="produtosLista" class="form-control rounded-0" name="produto" id="produto">
     </div>
     <div class="col-sm-2">
-        <button class="btn btn-success rounded-0"><i class="fas fa-search"></i></button>
+        <button class="btn btn-success bt-caixa rounded-0"><i class="fas fa-search"></i></button>
     </div>
 </div>
+<datalist id="produtosLista">
+    <?php
+    foreach($produtos->exibirProdutos() as $prod){
+    ?>
+        <option 
+        data-id="<?=$prod['IDProduto']?>"
+        data-nome="<?=$prod['nomeProduto']?>"
+        data-precoexibe="<?=PDV::trataValor($prod['valorProduto'],0)?>"
+        data-preco="<?=$prod['valorProduto']?>" 
+        value="<?=$prod['codigoBarras']?>"
+        >
+        <?=$prod['nomeProduto']?>
+        </option>
+    <?php
+    }
+    ?>
+</datalist>
 <br>
 <div class="col-sm-12 d-flex justify-content-center flex-wrap">
     <div class="col-sm-12">
@@ -23,17 +41,17 @@ include"../popup/modalFinalizar.php";
                     <th>Opções</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="caixaLista">
 
             </tbody>    
         </table>
     </div>
-    <hr width="100%">
+    <br>
     <div class="col-sm-12 d-flex ">
         <div class="col-sm-4 d-flex">
             <h3>Total(R$):&nbsp;</h3>
-            <h3>230&nbsp;</h3>
-            <button class="btn btn-success finalizarVenda">Finalizar</button>
+            <h3 id='valTotal'>0,00</h3>
+            <button class="btn btn-success finalizarVenda">&nbsp;Finalizar</button>
         </div>
     </div>
 </div>

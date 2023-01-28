@@ -20,6 +20,7 @@ function abrirPagina(file){
         $(".modal").on("hide.bs.modal",function(){
             $("input").val("")
         })
+
     })
 }
 
@@ -39,4 +40,8 @@ function validaCampos(form){
         return false
     }
     return true
+}
+
+function trataValorExibe(valor){
+    return Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(valor).replace("R$","").trim()
 }
