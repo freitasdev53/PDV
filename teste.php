@@ -4,10 +4,10 @@
 function trataValor($valor,$tratamento){
     //RECEBE VALORES DO BANCO DE DADOS PARA IMPRIMIR NA TELA
     switch($tratamento){
-        case "0":
+        case "0": //TRATA OS VALORES QUE VEM DO BANCO DE DADOS PARA IMPRIMIR NA TELA
             return number_format($valor,2,",",",");
         break;
-        case "1":
+        case "1": //TRATA OS VALORES QUE VEM DO SISTEMA PARA FAZER CALCULOS OU ENVIAR PARA O BANCO DE DADOS
             $envBanco = $valor; //VALOR
             $firstChar = strtok($envBanco,","); //NUMEROS ANTES DA PRIMEIRA VIRGULA
             $lastChar = strstr($envBanco,","); //NUMEROS DEPOIS DA VIRGULA

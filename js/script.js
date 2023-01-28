@@ -11,6 +11,15 @@ function abrirPagina(file){
         $(".exibicao").html(exibicao)
         $("#cadastroProduto #formProdutos .error-input").hide()
         $("#finalizarVenda #formFinalizar .error-input").hide()
+        $(function(){
+            $('.moneyInput').maskMoney({
+              allowNegative: true,
+              thousands:',', decimal:',',
+              affixesStay: true});
+        })
+        $(".modal").on("hide.bs.modal",function(){
+            $("input").val("")
+        })
     })
 }
 

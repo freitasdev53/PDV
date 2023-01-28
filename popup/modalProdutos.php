@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body">
         <form id="formProdutos" class="form-controls">
-          <input type="hidden" name="IDCliente">
+          <input type="hidden" name="IDProduto">
             <div class="row">
                 <div class="col-sm-6 input">
                     <label for="nomeProduto">Nome</label>
@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-sm-6 input">
                     <label for="telefoneCliente">Preço</label>
-                    <input type="text" name="precoProduto" class="form-control" maxlength="10" minlength="1">
+                    <input type="text" name="precoProduto" class="form-control moneyInput" maxlength="10" minlength="1">
                     <div class="error-input text-danger">
                       Preenchimento incorreto!
                     </div>
