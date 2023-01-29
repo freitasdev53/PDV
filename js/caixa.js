@@ -41,40 +41,48 @@ $(".bt-caixa").click(function(){
             "total"         : 0.0
         }
 
-        adicionarProdutoCaixa(dadosProdutos)
+        adicionarProdutoCaixa(dadosProdutos,"adc")
 
     }
 })
 //FUNCAO PARA EXIBIR PARA O USUARIO NA TELA
 //Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(rs['valorProduto']).replace("R$","").trim()
 
+$(".caixaLista").on("click",".bt-remove-produto",function(e){
+    IDProduto = $(this).parents("tr").attr("data-id")
+    adicionarProdutoCaixa(IDProduto,"del")
+    $(".caixaLista #produto_"+IDProduto).remove()
+})
 
-function adicionarProdutoCaixa(produto){
+function adicionarProdutoCaixa(produto,acao){
     //VALORES RECEBIDOS
-    console.log(produto)
-    soma = false
+    // console.log(produto)
     var somaTotal = 0.0
-    var total = produto.valorTrata
-    var quantidade = produto.quantidade
-    //VERIFICACAO SE TEM JA ALGUM IGUAL
-    $(".caixaLista tr").each(function(){
-        if($(this).attr("data-id") == produto.IDProduto){
-            soma = true
-            quantidade = parseInt($(this).attr("data-qtd")) + parseInt(produto.quantidade)
-            total = quantidade * produto.valorTrata
+    if(acao == "adc"){
+        soma = false
+        var total = produto.valorTrata
+        var quantidade = produto.quantidade
+        //VERIFICACAO SE TEM JA ALGUM IGUAL
+        $(".caixaLista tr").each(function(){
+            if($(this).attr("data-id") == produto.IDProduto){
+                soma = true
+                quantidade = parseInt($(this).attr("data-qtd")) + parseInt(produto.quantidade)
+                total = quantidade * produto.valorTrata
+            }
+            //$("#valTotal").text(somaValoresTotais(valoresTotais))
+        })
+        //ADICAO NA LINHA
+        if(soma == true){
+            $(".caixaLista #produto_"+produto.IDProduto).find(".total").text(trataValorExibe(total))
+            $(".caixaLista #produto_"+produto.IDProduto).attr("data-total",total)
+            $(".caixaLista #produto_"+produto.IDProduto).attr("data-qtd",quantidade)
+            $(".caixaLista #produto_"+produto.IDProduto).find(".qtd").text(quantidade)
+        }else{
+            $(".caixaLista").append('<tr id="produto_'+produto.IDProduto+'" data-id='+produto.IDProduto+' data-qtd='+quantidade+' data-total='+total+' data-val='+produto.valorTrata+'><td>'+produto.nomeProduto+'</td><td class="qtd">'+quantidade+'</td><td>'+produto.valorExibe+'</td><td class="total">'+trataValorExibe(total)+'</td><td><button class="btn btn-danger bt-remove-produto btn-xs btn-sm"><i class="nav-icon fa fa-trash"></i></button></td></tr>')
         }
-        //$("#valTotal").text(somaValoresTotais(valoresTotais))
-    })
-    //ADICAO NA LINHA
-    if(soma == true){
-        $(".caixaLista #produto_"+produto.IDProduto).find(".total").text(trataValorExibe(total))
-        $(".caixaLista #produto_"+produto.IDProduto).attr("data-total",total)
-        $(".caixaLista #produto_"+produto.IDProduto).attr("data-qtd",quantidade)
-        $(".caixaLista #produto_"+produto.IDProduto).find(".qtd").text(quantidade)
     }else{
-        $(".caixaLista").append('<tr id="produto_'+produto.IDProduto+'" data-id='+produto.IDProduto+' data-qtd='+quantidade+' data-total='+total+' data-val='+produto.valorTrata+'><td>'+produto.nomeProduto+'</td><td class="qtd">'+quantidade+'</td><td>'+produto.valorExibe+'</td><td class="total">'+trataValorExibe(total)+'</td></tr>')
+        $(".caixaLista #produto_"+produto).attr("data-total",0.0)
     }
-
     $(".caixaLista tr").each(function(){
         $("#valTotal").text(trataValorExibe(somaTotal += parseFloat($(this).attr("data-total"))))
     })
