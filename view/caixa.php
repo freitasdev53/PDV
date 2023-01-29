@@ -18,6 +18,7 @@ include"../processamento/class.php";
         <option 
         data-id="<?=$prod['IDProduto']?>"
         data-nome="<?=$prod['nomeProduto']?>"
+        data-estoque="<?=$prod['estoqueProduto']?>"
         data-precoexibe="<?=PDV::trataValor($prod['valorProduto'],0)?>"
         data-preco="<?=$prod['valorProduto']?>" 
         value="<?=$prod['codigoBarras']?>"

@@ -10,4 +10,6 @@ if(isset($_POST['nomeProduto'])){
     );
     // echo json_encode($dados);
     $produtos->salvarProduto($dados);
+}elseif(isset($_POST['venda'])){
+    $caixa->realizarVenda($_POST['venda']);
 }

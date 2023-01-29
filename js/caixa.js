@@ -3,10 +3,31 @@ $(".finalizarVenda").on("click",function(){
 })
 
 $(".bt_finalizar_venda").on("click",function(){
+    var venda = []
     if(!validaCampos("#formFinalizar")){
         alert("nao foi")
     }else{
-        alert("foi")
+        //CRIA UM JSON COM OS PRODUTOS LISTADOS
+       $(".caixaLista tr").each(function(){
+            venda.push({
+                "IDProduto"                : $(this).attr("data-id"),
+                "quantidadeProduto" : $(".qtd",this).text().trim(),
+            })
+       })
+        //REALIZA A VENDA
+        $.ajax({
+            method : "POST",
+            url    : "./processamento/enviaDados.php",
+            data   : {
+                venda  : venda,
+            }
+        }).done(function(retorno){
+            console.log(retorno)
+            // tableProdutos.ajax.reload( null, false )
+            console.log(retorno)
+            $("#finalizarVenda").modal("hide")
+        })
+        //
     }
 })
 
@@ -15,10 +36,15 @@ $(".bt-caixa").click(function(){
     if(CDBarras == ""){
         return false
     }else{
+
+        var QTProduto = $('#produtosLista option').filter(function() {
+            return this.value == CDBarras;
+        }).data('estoque');
+
         var IDProduto = $('#produtosLista option').filter(function() {
             return this.value == CDBarras;
         }).data('id');
-    
+        
         var valorExibe = $('#produtosLista option').filter(function() {
             return this.value == CDBarras;
         }).data('precoexibe');
@@ -38,7 +64,8 @@ $(".bt-caixa").click(function(){
             "valorTrata"    : valorTrata,
             "nomeProduto"   : nomeProduto,
             "quantidade"    : 1,
-            "total"         : 0.0
+            "total"         : 0.0,
+            "QTCaixa"       : QTProduto
         }
 
         adicionarProdutoCaixa(dadosProdutos,"adc")
@@ -72,13 +99,18 @@ function adicionarProdutoCaixa(produto,acao){
             //$("#valTotal").text(somaValoresTotais(valoresTotais))
         })
         //ADICAO NA LINHA
-        if(soma == true){
-            $(".caixaLista #produto_"+produto.IDProduto).find(".total").text(trataValor(total,0))
-            $(".caixaLista #produto_"+produto.IDProduto).attr("data-total",total)
-            $(".caixaLista #produto_"+produto.IDProduto).attr("data-qtd",quantidade)
-            $(".caixaLista #produto_"+produto.IDProduto).find(".qtd").text(quantidade)
+        if(produto.QTCaixa < quantidade){
+            alert("Quantidade insuficiente")
+            return false
         }else{
-            $(".caixaLista").append('<tr id="produto_'+produto.IDProduto+'" data-id='+produto.IDProduto+' data-qtd='+quantidade+' data-total='+total+' data-val='+produto.valorTrata+'><td>'+produto.nomeProduto+'</td><td class="qtd">'+quantidade+'</td><td>'+produto.valorExibe+'</td><td class="total">'+trataValor(total,0)+'</td><td><button class="btn btn-danger bt-remove-produto btn-xs btn-sm"><i class="nav-icon fa fa-trash"></i></button></td></tr>')
+            if(soma == true){
+                $(".caixaLista #produto_"+produto.IDProduto).find(".total").text(trataValor(total,0))
+                $(".caixaLista #produto_"+produto.IDProduto).attr("data-total",total)
+                $(".caixaLista #produto_"+produto.IDProduto).attr("data-qtd",quantidade)
+                $(".caixaLista #produto_"+produto.IDProduto).find(".qtd").text(quantidade)
+            }else{
+                $(".caixaLista").append('<tr id="produto_'+produto.IDProduto+'" data-id='+produto.IDProduto+' data-qtd='+quantidade+' data-total='+total+' data-val='+produto.valorTrata+'><td class="nomeProduto">'+produto.nomeProduto+'</td><td class="qtd">'+quantidade+'</td><td class="valorProduto">'+produto.valorExibe+'</td><td class="total">'+trataValor(total,0)+'</td><td><button class="btn btn-danger bt-remove-produto btn-xs btn-sm"><i class="nav-icon fa fa-trash"></i></button></td></tr>')
+            }
         }
     }else{
         $(".caixaLista #produto_"+produto).attr("data-total",0.0)

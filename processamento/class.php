@@ -29,4 +29,21 @@ class Produtos{
     }
 }
 
+class Caixa{
+    //Realiza uma venda
+    public static function realizarVenda($produto){
+        foreach($produto as $pro){
+            $SQL = mysqli_query(PDV::conectarDatabase(),"INSERT INTO vendas (IDProduto,DTVenda,Quantidade) VALUES ('".$pro['IDProduto']."',NOW(),'".$pro['quantidadeProduto']."') ") && mysqli_query(PDV::conectarDatabase(),"UPDATE produtos SET estoqueProduto = produtos.estoqueProduto - '".$pro['quantidadeProduto']."' WHERE IDProduto = '".$pro['IDProduto']."' ");
+        }
+        return $SQL;
+    }
+
+    public static function listarVendas(){
+        $SQL = mysqli_query(PDV::conectarDatabase(),"SELECT pro.nomeProduto as produto, ven.DTVenda as datahora, ven.Quantidade as quantidade, pro.valorProduto * ven.Quantidade as total FROM vendas as ven INNER JOIN produtos as pro USING(IDProduto)");
+        return $SQL;
+    }
+    //
+}
+
 $produtos = new Produtos;
+$caixa = new Caixa;
