@@ -30,5 +30,6 @@
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="js/script.js" type="text/javascript"></script>
 <script src="js/maskmoney.js" type="text/javascript"></script>
+<script src="js/jquery.mask.js"></script>
 </body>
 </html>

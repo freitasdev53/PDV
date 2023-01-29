@@ -51,7 +51,9 @@ include"../processamento/class.php";
         <div class="col-sm-4 d-flex">
             <h3>Total(R$):&nbsp;</h3>
             <h3 id='valTotal'>0,00</h3>
-            <button class="btn btn-success finalizarVenda">&nbsp;Finalizar</button>
         </div>
     </div>
 </div>
+<br>
+<button class="btn btn-success finalizarVenda">&nbsp;Finalizar</button>
+<!-- <h5 id='teste'></h5> -->

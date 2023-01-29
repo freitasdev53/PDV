@@ -9,17 +9,17 @@
       </div>
       <div class="modal-body">
         <form id="formFinalizar" class="form-controls">
-          <input type="hidden" name="IDCliente">
+          <input type="hidden" name="valorTotal">
                 <div class="col-sm-12 input">
                     <label for="pagamentoProduto">Valor recebido</label>
-                    <input name="pagamentoProduto" type="text" class="form-control" maxlength="10" minlength="1">
+                    <input name="pagamentoProduto" type="text" class="form-control moneyInput" maxlength="10" minlength="1">
                     <div class="error-input text-danger">
                       Preenchimento incorreto!
                     </div>
                 </div>
                 <div class="col-sm-12 d-flex justify-content-center">
-                    <h3>Troco:</h3>
-                    <h3></h3>
+                    <h3>Troco:&nbsp;&nbsp;</h3>
+                    <h3 id='valTroco'></h3>
                 </div>
         </form>
       </div>

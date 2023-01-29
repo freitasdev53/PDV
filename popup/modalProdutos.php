@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-sm-6 input">
                     <label for="estoqueProduto">Estoque</label>
-                    <input type="number" name="estoqueProduto" class="form-control"  maxlength="5" minlength="1">
+                    <input type="text" name="estoqueProduto" class="form-control"  maxlength="5" minlength="1">
                     <div class="error-input text-danger">
                       Preenchimento incorreto!
                     </div>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-sm-6 input">
                     <label for="cpfCliente">Codigo de barras</label>
-                    <input type="number" name="cbarrasProduto" class="form-control" maxlength="13" minlength="13">
+                    <input type="text" name="cbarrasProduto" class="form-control" minlength="13">
                     <div class="error-input text-danger">
                       Preenchimento incorreto!
                     </div>

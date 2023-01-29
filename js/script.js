@@ -21,6 +21,16 @@ function abrirPagina(file){
             $("input").val("")
         })
 
+        $('input[type=name]').bind('input',function(){
+            str = $(this).val().replace(/[^A-Za-z\u00C0-\u00FF\-\/\s]+/g,'');
+            str = str.replace(/[\s{ \2 }]+/g,' ');
+            if(str == " ")str = "";
+            $(this).val( str );
+        });
+
+        $("input[name=cbarrasProduto]").mask("0000000000000")
+        $("input[name=estoqueProduto]").mask("00000")
+
     })
 }
 
@@ -42,6 +52,10 @@ function validaCampos(form){
     return true
 }
 
-function trataValorExibe(valor){
-    return Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(valor).replace("R$","").trim()
+function trataValor(valor,tratamento){
+    if(tratamento == 0){
+        return Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(valor).replace("R$","").trim()
+    }else{
+        return valor.replace(",",".").trim()
+    }
 }
