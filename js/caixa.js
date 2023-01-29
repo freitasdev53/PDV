@@ -91,39 +91,10 @@ function adicionarProdutoCaixa(produto,acao){
 }
 
 $("#finalizarVenda").on("show.bs.modal",function(){
-    var valorTotalCompra= trataValor($("#valTotal").text(),1)
-    var virgulaValorTotal = "."
-    var quantidadeVirgulasValorTotal = 0
-
-    for (var i = 0; i < valorTotalCompra.length; i++) {
-        if (valorTotalCompra[i] == virgulaValorTotal) {
-        quantidadeVirgulasValorTotal++
-        }
-    }
-
-    if(quantidadeVirgulasValorTotal == 2){
-        valorTotal = trataValor(valorTotalCompra,1).replace(",",".").replace(".","")
-    }else{
-        valorTotal = trataValor(valorTotalCompra,1)
-    }
+    var valorTotal= trataValor($("#valTotal").text(),1)
 
     $("input[name=pagamentoProduto]").keyup(function(){
-        var valor = $(this).val();
-        console.log("valor total "+valorTotalCompra)
-        console.log("valor recebido "+valor)
-        var virgula = ",";
-        var quantidadeVirgulas = 0
-
-        for (var i = 0; i < valor.length; i++) {
-            if (valor[i] == virgula) {
-            quantidadeVirgulas++
-            }
-        }
-        if(quantidadeVirgulas == 2){
-            var valorRecebido = trataValor($(this).val(),1).replace(",",".").replace(".","")
-        }else{
-            var valorRecebido = trataValor($(this).val(),1)
-        }
+        var valorRecebido = trataValor($(this).val(),1);
         var troco = parseFloat(valorRecebido) - parseFloat(valorTotal)
         $("#valTroco").text(trataValor(troco,0))
     })

@@ -19,6 +19,7 @@ function abrirPagina(file){
         })
         $(".modal").on("hide.bs.modal",function(){
             $("input").val("")
+            $("#valTroco").text("")
         })
 
         $('input[type=name]').bind('input',function(){
@@ -54,8 +55,21 @@ function validaCampos(form){
 
 function trataValor(valor,tratamento){
     if(tratamento == 0){
+        //TRATAENTO PARA EXIBIR NA TELA
         return Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(valor).replace("R$","").trim()
     }else{
-        return valor.replace(",",".").trim()
+        //TRATAMENTO PARA PROCESSAR NO BACKEND
+        var quantidade = 0;
+        for (var i = 0; i < valor.length; i++) {
+            if (valor[i] == "," || valor[i] == "." ) {
+                quantidade++
+            }
+        }
+        //PERGUNTA SE A QUANTIDADE DE VIRGULAS E IGUAL A DOIS
+        if(quantidade == 2){
+            return valor.replace(",",".").replace(".","")
+        }else{
+            return valor.replace(",",".").trim()
+        }
     }
 }
